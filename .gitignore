@@ -19,6 +19,7 @@ target/
 *.iml
 *.ipr
 src/main/java/com/dreamcatcher/dreamcatcherapi/data
+src/test
 
 ### NetBeans ###
 /nbproject/private/
