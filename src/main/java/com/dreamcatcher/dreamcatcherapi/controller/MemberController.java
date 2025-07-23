@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/members")
-
 public class MemberController {
     private final MemberRepository memberRepository;
 
@@ -32,15 +31,16 @@ public class MemberController {
             throw new DreamcatcherException(400, "Please provide a stage name");
         }
         Optional<Member> member = memberRepository.findByStageName(stageName);
-        return member.map(ResponseEntity::ok)
-                .orElseThrow(() -> new DreamcatcherException(404, "Member with stage name " + stageName + " not found"));
+        return member.map(m -> {
+            setImageUrl(m);
+            return ResponseEntity.ok(m);
+        }).orElseThrow(() -> new DreamcatcherException(404, "Member with stage name " + stageName + " not found"));
     }
 
     private void setImageUrl(Member member) {
         if (member != null && member.getImage() == null) {
-            // Asigna la URL basada en el stageName (ajústalo según tu lógica)
             String stageName = member.getStageName() != null ? member.getStageName().toLowerCase() : "default";
-            member.setImage("https://dreamcatcherapi.onrender.com/members/picture/" + stageName + ".png");
+            member.setImage("https://dreamcatcherapi.onrender.com/images/members/" + stageName + ".png");
         }
     }
 }
