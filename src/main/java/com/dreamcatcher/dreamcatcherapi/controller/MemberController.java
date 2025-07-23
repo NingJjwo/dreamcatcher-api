@@ -20,8 +20,10 @@ public class MemberController {
     }
 
     @GetMapping
-    public List<Member> getAllMembers() {
-        return memberRepository.findAll();
+    public ResponseEntity<List<Member>> getAllMembers() {
+        List<Member> members = memberRepository.findAll();
+        members.forEach(this::setImageUrl);
+        return members.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(members);
     }
 
     @GetMapping("/stageName")
@@ -32,5 +34,13 @@ public class MemberController {
         Optional<Member> member = memberRepository.findByStageName(stageName);
         return member.map(ResponseEntity::ok)
                 .orElseThrow(() -> new DreamcatcherException(404, "Member with stage name " + stageName + " not found"));
+    }
+
+    private void setImageUrl(Member member) {
+        if (member != null && member.getImage() == null) {
+            // Asigna la URL basada en el stageName (ajústalo según tu lógica)
+            String stageName = member.getStageName() != null ? member.getStageName().toLowerCase() : "default";
+            member.setImage("https://dreamcatcherapi.onrender.com/members/picture/" + stageName + ".jpg");
+        }
     }
 }
