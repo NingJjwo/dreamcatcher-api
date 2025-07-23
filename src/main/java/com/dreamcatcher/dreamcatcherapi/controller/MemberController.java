@@ -40,7 +40,7 @@ public class MemberController {
         if (member != null && member.getImage() == null) {
             // Asigna la URL basada en el stageName (ajústalo según tu lógica)
             String stageName = member.getStageName() != null ? member.getStageName().toLowerCase() : "default";
-            member.setImage("https://dreamcatcherapi.onrender.com/members/picture/" + stageName + ".jpg");
+            member.setImage("https://dreamcatcherapi.onrender.com/members/picture/" + stageName + ".png");
         }
     }
 }
