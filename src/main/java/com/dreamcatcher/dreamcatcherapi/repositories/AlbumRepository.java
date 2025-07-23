@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface AlbumRepository extends MongoRepository<Album, Long> {
     List<Album> findAll();
     Optional<Album> findByTitle(String title);
+    List<Album> findByYear(int year);
+    List<Album> findByReleasedAs(String releasedAs);
 }
