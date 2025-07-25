@@ -42,7 +42,7 @@ public class TourService {
     }
 
     public TourDetailDto getTourDetailDto(String tourTitle) {
-        Tour tour = tourRepository.findByTourTitleContaining(tourTitle)
+        Tour tour = tourRepository.findByTitleContaining(tourTitle)
                 .orElseThrow(() -> new DreamcatcherException(404, "No tour found containing " + tourTitle));
         generateImageUrl(tour);
         return tourMapper.toDetailDTO(tour);

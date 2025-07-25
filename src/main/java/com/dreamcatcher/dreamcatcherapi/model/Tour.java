@@ -50,7 +50,6 @@ public class Tour extends ImageGenerable {
 
         } catch (Exception e) {
             image = null;
-            System.out.println("Error generating image URL: " + e.getMessage());
         }
     }
 
