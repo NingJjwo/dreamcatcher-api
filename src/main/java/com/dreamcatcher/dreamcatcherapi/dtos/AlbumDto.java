@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -13,4 +12,5 @@ public class AlbumDto {
     private String title;
     private int tracks;
     private String releaseDate;
+    private String image;
 }

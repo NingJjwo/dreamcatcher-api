@@ -29,6 +29,7 @@ public class AlbumController {
     public ResponseEntity<List<AlbumDto>> getAllAlbums() {
         List<AlbumDto> albums = albumRepository.findAll()
                 .stream()
+                .peek(Album::generateImageUrl)
                 .map(albumMapper::toDTO)
                 .collect(Collectors.toList());
         return albums.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(albums);
@@ -38,6 +39,7 @@ public class AlbumController {
     public ResponseEntity<List<AlbumDto>> getAlbumsByYear(@RequestParam int year) {
         List<AlbumDto> albums = albumRepository.findByYear(year)
                 .stream()
+                .peek(Album::generateImageUrl)
                 .map(albumMapper::toDTO)
                 .collect(Collectors.toList());
         return albums.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(albums);
@@ -45,25 +47,28 @@ public class AlbumController {
 
     @GetMapping("/getAlbumSongs")
     public ResponseEntity<AlbumDetailDto> getAlbumByTitle(@RequestParam String title) {
-        Optional<Album> albumOptional = albumRepository.findByTitle(title);
+        Optional<Album> albumOptional = albumRepository.findByTitleContaining(title);
         return albumOptional.map(album -> {
+            album.generateImageUrl();
             AlbumDetailDto albumDto = albumMapper.toDetailDTO(album);
             return ResponseEntity.ok(albumDto);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
     @GetMapping("/getAlbum")
     public ResponseEntity<AlbumDto> getAlbum(@RequestParam String title) {
-        Optional<Album> albumOptional = albumRepository.findByTitle(title);
-        return albumOptional.map(album -> ResponseEntity.ok(albumMapper.toDTO(album)))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<Album> albumOptional = albumRepository.findByTitleContaining(title);
+        return albumOptional.map(album -> {
+            album.generateImageUrl();
+            return ResponseEntity.ok(albumMapper.toDTO(album));
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/getAlbumByGroupName")
     public ResponseEntity<List<AlbumDto>> getAlbumsByGroupName(@RequestParam String releasedAs) {
         List<AlbumDto> albums = albumRepository.findByReleasedAs(releasedAs)
                 .stream()
+                .peek(Album::generateImageUrl)
                 .map(albumMapper::toDTO)
                 .collect(Collectors.toList());
         return albums.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(albums);

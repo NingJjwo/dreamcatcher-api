@@ -15,4 +15,5 @@ public class AlbumDetailDto {
     private int tracks;
     private String releaseDate;
     private List<SongDto> songs;
+    private String image;
 }

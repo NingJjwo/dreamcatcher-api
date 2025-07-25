@@ -10,4 +10,5 @@ public interface AlbumRepository extends MongoRepository<Album, Long> {
     Optional<Album> findByTitle(String title);
     List<Album> findByYear(int year);
     List<Album> findByReleasedAs(String releasedAs);
+    Optional<Album> findByTitleContaining(String title);
 }
