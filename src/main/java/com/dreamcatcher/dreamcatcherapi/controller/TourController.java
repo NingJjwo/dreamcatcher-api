@@ -26,8 +26,8 @@ public class TourController {
     }
 
     @GetMapping("/title")
-    public ResponseEntity<TourDetailDto> getTourByTitle(@RequestParam(required = false) String tourTitle) {
-        tourService.validateTourTitle(tourTitle);
-        return ResponseEntity.ok(tourService.getTourDetailDto(tourTitle));
+    public ResponseEntity<TourDetailDto> getTourByTitle(@RequestParam(required = false) String title) {
+        tourService.validateTourTitle(title);
+        return ResponseEntity.ok(tourService.getTourDetailDto(title));
     }
 }
