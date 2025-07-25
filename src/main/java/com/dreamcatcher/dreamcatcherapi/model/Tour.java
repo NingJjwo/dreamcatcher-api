@@ -25,32 +25,13 @@ public class Tour extends ImageGenerable {
     private List<Show> shows;
     private String image;
 
-
     @Override
     public void generateImageUrl() {
-        if (title == null || year <= 0) {
+        if (id == null) {
             image = null;
             return;
         }
-        try {
-
-            String base = title.contains("(")
-                    ? title.substring(0, title.indexOf("(")).trim()
-                    : title.trim();
-
-            base = base.toLowerCase()
-                    .replaceAll("[^a-z0-9]", "-")
-                    .replaceAll("-+", "-")
-                    .replaceAll("^-|-$", "");
-
-            if (base.length() > 15) base = base.substring(0, 15).replaceAll("-$", "");
-            if (base.isEmpty()) base = "tour";
-
-            image = "https://dreamcatcherapi.onrender.com/images/tours/" + base + "-" + year + "-" + this.id + ".png";
-
-        } catch (Exception e) {
-            image = null;
-        }
+        image = "https://dreamcatcherapi.onrender.com/images/tours/tour" + id + ".png";
     }
 
     @Override
