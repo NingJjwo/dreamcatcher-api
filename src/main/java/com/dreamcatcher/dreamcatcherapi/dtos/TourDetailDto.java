@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TourDetailDto {
     private String image;
-    private String tourTitle;
+    private String title;
     private String startDate;
     private String endDate;
     private List<ShowDto> shows;

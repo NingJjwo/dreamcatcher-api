@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TourDto {
     private Long id;
-    private String tourTitle;
+    private String title;
     @JsonIgnore
     private int year;
     private int setShows;
