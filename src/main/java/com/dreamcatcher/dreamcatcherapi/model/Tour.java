@@ -17,7 +17,7 @@ import java.util.List;
 public class Tour extends ImageGenerable {
     @Id
     private Long id;
-    private String tourTitle;
+    private String title;
     private String startDate;
     private String endDate;
     private int year;
@@ -28,15 +28,15 @@ public class Tour extends ImageGenerable {
 
     @Override
     public void generateImageUrl() {
-        if (tourTitle == null || year <= 0) {
+        if (title == null || year <= 0) {
             image = null;
             return;
         }
         try {
 
-            String base = tourTitle.contains("(")
-                    ? tourTitle.substring(0, tourTitle.indexOf("(")).trim()
-                    : tourTitle.trim();
+            String base = title.contains("(")
+                    ? title.substring(0, title.indexOf("(")).trim()
+                    : title.trim();
 
             base = base.toLowerCase()
                     .replaceAll("[^a-z0-9]", "-")
