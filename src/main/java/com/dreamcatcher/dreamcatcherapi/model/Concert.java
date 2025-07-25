@@ -27,28 +27,11 @@ public class Concert extends ImageGenerable {
 
     @Override
     public void generateImageUrl() {
-        if (title == null || year <= 0) {
+        if (id == null) {
             image = null;
             return;
         }
-        try {
-            String baseTitle = title.contains("(")
-                    ? title.substring(0, title.indexOf("(")).trim()
-                    : title.trim();
-            baseTitle = baseTitle.replaceAll("[^a-zA-Z0-9\\s-]", "-")
-                    .replaceAll("\\s+", "-")
-                    .replaceAll("-+", "-");
-
-            String tempBaseTitle = baseTitle.substring(0, Math.min(20, baseTitle.length())) + "-" + year;
-            if (tempBaseTitle.equals("Luck-Inside-7-Doors--2024")) {
-                baseTitle = baseTitle.substring(0, Math.min(17, baseTitle.length())) + "-" + id + "-" + year;
-            } else {
-                baseTitle = baseTitle.substring(0, Math.min(20, baseTitle.length())) + "-" + year;
-            }
-            image = "https://dreamcatcherapi.onrender.com/images/concerts/" + baseTitle + ".jpeg";
-        } catch (Exception e) {
-            image = null;
-        }
+        image = "https://dreamcatcherapi.onrender.com/images/concerts/concert" + id + ".jpeg";
     }
 
     @Override
