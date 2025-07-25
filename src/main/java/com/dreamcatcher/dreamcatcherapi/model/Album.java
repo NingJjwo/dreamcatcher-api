@@ -27,25 +27,11 @@ public class Album extends ImageGenerable {
 
     @Override
     public void generateImageUrl() {
-        if (title == null || year <= 0) {
+        if (id == null) {
             image = null;
             return;
         }
-        try {
-            String baseTitle = title.contains("(")
-                    ? title.substring(0, title.indexOf("(")).trim() : title.trim();
-            baseTitle = baseTitle.replaceAll("[^a-zA-Z0-9\\s-]", "-")
-                    .replaceAll("\\s+", "-")
-                    .replaceAll("-+", "-");
-
-            if (baseTitle.length() > 20) {
-                baseTitle = baseTitle.substring(0, 20);
-            }
-            baseTitle += "-" + year;
-            image = "https://dreamcatcherapi.onrender.com/images/albums/" + baseTitle + ".jpeg";
-        } catch (Exception e) {
-            image = null;
-        }
+        image = "https://dreamcatcherapi.onrender.com/images/albums/album" + id + ".jpeg";
     }
 
     @Override
