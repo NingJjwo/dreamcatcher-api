@@ -54,7 +54,6 @@ public class AlbumController {
             return ResponseEntity.ok(albumDto);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
     @GetMapping("/getAlbum")
     public ResponseEntity<AlbumDto> getAlbum(@RequestParam String title) {
         Optional<Album> albumOptional = albumRepository.findByTitleContaining(title);

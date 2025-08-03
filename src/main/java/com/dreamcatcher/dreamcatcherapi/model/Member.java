@@ -42,10 +42,8 @@ public class Member extends ImageGenerable {
     public void generateImageUrl() {
         if (stageName != null) {
             try {
-                String safeStageName = stageName.replaceAll("[^a-zA-Z0-9\\-]", "-")
-                        .replaceAll("-+", "-")
-                        .substring(0, Math.min(20, stageName.length()));
-                image = "https://dreamcatcherapi.onrender.com/images/members/" + safeStageName + ".png"; // Asigna directamente al campo
+                String safeStageName = stageName.toLowerCase();
+                image = "https://dreamcatcherapi.onrender.com/images/members/" + safeStageName + ".png";
             } catch (Exception e) {
                 image = null;
             }
