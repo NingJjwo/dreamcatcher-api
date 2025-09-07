@@ -8,6 +8,7 @@ import com.dreamcatcher.dreamcatcherapi.repositories.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +36,7 @@ public class AlbumController {
         return albums.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(albums);
     }
 
-    @GetMapping("/getAlbumsByYear")
+    @GetMapping(params = "year")
     public ResponseEntity<List<AlbumDto>> getAlbumsByYear(@RequestParam int year) {
         List<AlbumDto> albums = albumRepository.findByYear(year)
                 .stream()
@@ -45,8 +46,8 @@ public class AlbumController {
         return albums.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(albums);
     }
 
-    @GetMapping("/getAlbumSongs")
-    public ResponseEntity<AlbumDetailDto> getAlbumByTitle(@RequestParam String title) {
+    @GetMapping("/{title}/songs")
+    public ResponseEntity<AlbumDetailDto> getAlbumByTitle(@PathVariable String title) {
         Optional<Album> albumOptional = albumRepository.findByTitleContaining(title);
         return albumOptional.map(album -> {
             album.generateImageUrl();
@@ -54,8 +55,8 @@ public class AlbumController {
             return ResponseEntity.ok(albumDto);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
-    @GetMapping("/getAlbum")
-    public ResponseEntity<AlbumDto> getAlbum(@RequestParam String title) {
+    @GetMapping("/{title}")
+    public ResponseEntity<AlbumDto> getAlbum(@PathVariable String title) {
         Optional<Album> albumOptional = albumRepository.findByTitleContaining(title);
         return albumOptional.map(album -> {
             album.generateImageUrl();
@@ -63,7 +64,7 @@ public class AlbumController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/getAlbumByGroupName")
+    @GetMapping(params = "releasedAs")
     public ResponseEntity<List<AlbumDto>> getAlbumsByGroupName(@RequestParam String releasedAs) {
         List<AlbumDto> albums = albumRepository.findByReleasedAs(releasedAs)
                 .stream()
