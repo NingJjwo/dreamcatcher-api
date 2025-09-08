@@ -2,9 +2,7 @@ package com.dreamcatcher.dreamcatcherapi.controller;
 
 import com.dreamcatcher.dreamcatcherapi.dtos.AlbumDetailDto;
 import com.dreamcatcher.dreamcatcherapi.dtos.AlbumDto;
-import com.dreamcatcher.dreamcatcherapi.mappers.AlbumMapper;
-import com.dreamcatcher.dreamcatcherapi.model.Album;
-import com.dreamcatcher.dreamcatcherapi.repositories.AlbumRepository;
+import com.dreamcatcher.dreamcatcherapi.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,63 +12,41 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/albums")
 public class AlbumController {
 
     @Autowired
-    private AlbumRepository albumRepository;
-    @Autowired
-    private AlbumMapper albumMapper;
+    private AlbumService albumService;
 
     @GetMapping
     public ResponseEntity<List<AlbumDto>> getAllAlbums() {
-        List<AlbumDto> albums = albumRepository.findAll()
-                .stream()
-                .peek(Album::generateImageUrl)
-                .map(albumMapper::toDTO)
-                .collect(Collectors.toList());
-        return albums.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(albums);
+        List<AlbumDto> albums = albumService.getAllAlbums();
+        return ResponseEntity.ok(albums);
     }
 
     @GetMapping(params = "year")
     public ResponseEntity<List<AlbumDto>> getAlbumsByYear(@RequestParam int year) {
-        List<AlbumDto> albums = albumRepository.findByYear(year)
-                .stream()
-                .peek(Album::generateImageUrl)
-                .map(albumMapper::toDTO)
-                .collect(Collectors.toList());
-        return albums.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(albums);
+        List<AlbumDto> albums = albumService.getAlbumsByYear(year);
+        return ResponseEntity.ok(albums);
     }
 
     @GetMapping("/{title}/songs")
-    public ResponseEntity<AlbumDetailDto> getAlbumByTitle(@PathVariable String title) {
-        Optional<Album> albumOptional = albumRepository.findByTitleContaining(title);
-        return albumOptional.map(album -> {
-            album.generateImageUrl();
-            AlbumDetailDto albumDto = albumMapper.toDetailDTO(album);
-            return ResponseEntity.ok(albumDto);
-        }).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<AlbumDetailDto> getAlbumSongs(@PathVariable String title) {
+        AlbumDetailDto albumDetail = albumService.getAlbumDetail(title);
+        return ResponseEntity.ok(albumDetail);
     }
+
     @GetMapping("/{title}")
     public ResponseEntity<AlbumDto> getAlbum(@PathVariable String title) {
-        Optional<Album> albumOptional = albumRepository.findByTitleContaining(title);
-        return albumOptional.map(album -> {
-            album.generateImageUrl();
-            return ResponseEntity.ok(albumMapper.toDTO(album));
-        }).orElseGet(() -> ResponseEntity.notFound().build());
+        AlbumDto album = albumService.getAlbum(title);
+        return ResponseEntity.ok(album);
     }
 
     @GetMapping(params = "releasedAs")
     public ResponseEntity<List<AlbumDto>> getAlbumsByGroupName(@RequestParam String releasedAs) {
-        List<AlbumDto> albums = albumRepository.findByReleasedAs(releasedAs)
-                .stream()
-                .peek(Album::generateImageUrl)
-                .map(albumMapper::toDTO)
-                .collect(Collectors.toList());
-        return albums.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(albums);
+        List<AlbumDto> albums = albumService.getAlbumsByReleasedAs(releasedAs);
+        return ResponseEntity.ok(albums);
     }
 }
