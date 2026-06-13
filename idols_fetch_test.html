@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #eee;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #c8a96e;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 14px;
+      width: 150px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #333;
+    }
+
+    .card h3 {
+      margin: 8px 0 4px;
+      font-size: 14px;
+      color: #c8a96e;
+    }
+
+    .card p {
+      font-size: 11px;
+      color: #888;
+      margin: 0;
+    }
+
+    .error {
+      color: #ff6b6b;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>🎤 Dreamcatcher Idols</h2>
+  <div id="status" style="color:#888;font-size:13px">Fetching...</div>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    fetch('http://localhost:8080/api/idols')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('status').textContent = `${data.length} idols found`;
+        const grid = document.getElementById('grid');
+        data.forEach(idol => {
+          const imgSrc = idol.imageUrl
+            ? `http://localhost:8080${idol.imageUrl}`
+            : 'https://via.placeholder.com/80?text=?';
+          grid.innerHTML += `
+            <div class="card">
+              <img src="${imgSrc}" onerror="this.src='https://via.placeholder.com/80?text=?'" />
+              <h3>${idol.stageName}</h3>
+              <p>${idol.realName}</p>
+              <p>${idol.positions}</p>
+            </div>`;
+        });
+      })
+      .catch(err => {
+        document.getElementById('status').innerHTML = `<span class="error">❌ Could not connect to localhost:8080 — is your Spring Boot app running?</span>`;
+      });
+  </script>
+</body>
+
+</html>
