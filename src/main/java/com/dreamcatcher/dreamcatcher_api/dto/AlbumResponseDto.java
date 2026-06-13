@@ -3,7 +3,6 @@ package com.dreamcatcher.dreamcatcher_api.dto;
 import com.dreamcatcher.dreamcatcher_api.model.Album;
 
 public record AlbumResponseDto(
-        Long id,
         Long albumId,
         String albumTitle,
         Integer trackCount,
@@ -16,7 +15,6 @@ public record AlbumResponseDto(
             return null;
         }
         return new AlbumResponseDto(
-                album.getAlbumId(),
                 album.getAlbumId(),
                 album.getAlbumTitle(),
                 album.getTrackCount(),
