@@ -6,7 +6,6 @@ import com.dreamcatcher.dreamcatcher_api.model.Idol;
 import com.dreamcatcher.dreamcatcher_api.model.Position;
 
 public record IdolResponseDto(
-        Long id,
         Long idolId,
         String stageName,
         String realName,
@@ -24,7 +23,6 @@ public record IdolResponseDto(
                 : List.of();
 
         return new IdolResponseDto(
-                idol.getIdolId(),
                 idol.getIdolId(),
                 idol.getStageName(),
                 idol.getRealName(),
