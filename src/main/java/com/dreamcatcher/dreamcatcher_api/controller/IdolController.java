@@ -22,13 +22,9 @@ public class IdolController {
     private final IdolService idolService;
 
     @GetMapping
-    public ResponseEntity<List<IdolResponseDto>> getAllIdols() {
-        return ResponseEntity.ok(idolService.findAll());
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<IdolResponseDto>> searchIdolsByStageName(@RequestParam String name) {
-        return ResponseEntity.ok(idolService.findByStageName(name));
+    public ResponseEntity<List<IdolResponseDto>> getAllIdols(
+            @RequestParam(name = "name", required = false) String name) {
+        return ResponseEntity.ok(idolService.findAll(name));
     }
 
     @GetMapping("/{id}")

@@ -22,6 +22,15 @@ public class IdolService {
         return idolRepository.findAll().stream().map(IdolResponseDto::from).toList();
     }
 
+    public List<IdolResponseDto> findAll(String stageName) {
+        if (stageName == null || stageName.isBlank()) {
+            return findAll();
+        }
+        return idolRepository.findByStageNameContainingIgnoreCase(stageName.trim()).stream()
+                .map(IdolResponseDto::from)
+                .toList();
+    }
+
     public IdolResponseDto findById(Long id) {
         return idolRepository.findById(id)
                 .map(IdolResponseDto::from)
@@ -30,14 +39,5 @@ public class IdolService {
 
     public List<IdolResponseDto> findAllByGroupId(Long groupId) {
         return idolRepository.findByGroupGroupId(groupId).stream().map(IdolResponseDto::from).toList();
-    }
-
-    public List<IdolResponseDto> findByStageName(String stageName) {
-        if (stageName == null) {
-            return List.of();
-        }
-        return idolRepository.findByStageNameContainingIgnoreCase(stageName.trim()).stream()
-                .map(IdolResponseDto::from)
-                .toList();
     }
 }
