@@ -9,5 +9,5 @@ import com.dreamcatcher.dreamcatcher_api.model.Song;
 
 @Repository
 public interface SongRepository extends JpaRepository<Song, Long> {
-    List<Song> findByAlbumAlbumId(Long albumId);
+    List<Song> findByAlbum_Id(Long albumId);
 }

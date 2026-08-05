@@ -31,8 +31,8 @@ public class Album {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "album_id")
-    private Long albumId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "album_title")
     private String albumTitle;

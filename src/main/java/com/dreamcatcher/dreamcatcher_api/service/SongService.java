@@ -31,7 +31,7 @@ public class SongService {
     }
 
     public List<SongResponseDto> findAllByAlbumId(Long albumId) {
-        return songRepository.findByAlbumAlbumId(albumId).stream()
+        return songRepository.findByAlbum_Id(albumId).stream()
                 .map(SongResponseDto::from)
                 .toList();
     }

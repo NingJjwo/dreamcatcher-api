@@ -31,7 +31,7 @@ public class AlbumService {
     }
 
     public List<AlbumResponseDto> findAllByGroupId(Long groupId) {
-        return albumRepository.findByGroupGroupId(groupId).stream()
+        return albumRepository.findByGroup_Id(groupId).stream()
                 .map(AlbumResponseDto::from)
                 .toList();
     }

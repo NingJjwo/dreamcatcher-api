@@ -9,5 +9,5 @@ import com.dreamcatcher.dreamcatcher_api.model.Album;
 
 @Repository
 public interface AlbumRepository extends JpaRepository<Album, Long> {
-    List<Album> findByGroupGroupId(Long groupId);
+    List<Album> findByGroup_Id(Long groupId);
 }

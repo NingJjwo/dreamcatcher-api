@@ -3,7 +3,7 @@ package com.dreamcatcher.dreamcatcher_api.dto;
 import com.dreamcatcher.dreamcatcher_api.model.Song;
 
 public record SongResponseDto(
-        Long songId,
+        Long id,
         String songName,
         Integer trackNumber) {
 
@@ -12,7 +12,7 @@ public record SongResponseDto(
             return null;
         }
         return new SongResponseDto(
-                song.getSongId(),
+                song.getId(),
                 song.getSongName(),
                 song.getTrackNumber());
     }

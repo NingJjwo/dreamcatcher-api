@@ -38,6 +38,6 @@ public class IdolService {
     }
 
     public List<IdolResponseDto> findAllByGroupId(Long groupId) {
-        return idolRepository.findByGroupGroupId(groupId).stream().map(IdolResponseDto::from).toList();
+        return idolRepository.findByGroup_Id(groupId).stream().map(IdolResponseDto::from).toList();
     }
 }

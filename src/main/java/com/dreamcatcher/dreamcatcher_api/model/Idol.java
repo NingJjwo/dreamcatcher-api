@@ -30,14 +30,17 @@ public class Idol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idol_id")
-    private Long idolId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "real_name")
     private String realName;
 
     @Column(name = "stage_name")
     private String stageName;
+
+    @Column(name = "nationality")
+    private String nationality;
 
     @Column(name = "image_url")
     private String imageUrl;

@@ -15,7 +15,7 @@ public interface IdolRepository extends JpaRepository<Idol, Long> {
     List<Idol> findAll();
 
     @EntityGraph(attributePaths = { "group" })
-    List<Idol> findByGroupGroupId(Long groupId);
+    List<Idol> findByGroup_Id(Long groupId);
 
     @EntityGraph(attributePaths = { "group" })
     List<Idol> findByStageNameContainingIgnoreCase(String stageName);
