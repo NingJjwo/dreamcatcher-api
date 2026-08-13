@@ -11,12 +11,12 @@ import com.dreamcatcher.dreamcatcher_api.model.Idol;
 @Repository
 public interface IdolRepository extends JpaRepository<Idol, Long> {
 
-    @EntityGraph(attributePaths = { "group" })
+    @EntityGraph(attributePaths = { "group", "positions" })
     List<Idol> findAll();
 
-    @EntityGraph(attributePaths = { "group" })
+    @EntityGraph(attributePaths = { "group", "positions" })
     List<Idol> findByGroup_Id(Long groupId);
 
-    @EntityGraph(attributePaths = { "group" })
+    @EntityGraph(attributePaths = { "group", "positions" })
     List<Idol> findByStageNameContainingIgnoreCase(String stageName);
 }
