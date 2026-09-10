@@ -15,11 +15,14 @@ import com.dreamcatcher.dreamcatcher_api.service.AlbumService;
 import com.dreamcatcher.dreamcatcher_api.service.GroupService;
 import com.dreamcatcher.dreamcatcher_api.service.IdolService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/groups")
 @RequiredArgsConstructor
+@Tag(name = "Groups", description = "K-pop groups")
 public class GroupController {
 
     private final GroupService groupService;
@@ -27,21 +30,25 @@ public class GroupController {
     private final IdolService idolService;
 
     @GetMapping
+    @Operation(summary = "List all groups")
     public List<GroupResponseDto> getAllGroups() {
         return groupService.findAll();
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a group by id")
     public GroupDetailResponseDto getGroupById(@PathVariable Long id) {
         return groupService.findById(id);
     }
 
     @GetMapping("/{groupId}/albums")
+    @Operation(summary = "List the albums of a group")
     public List<AlbumResponseDto> getAlbumsByGroupId(@PathVariable Long groupId) {
         return albumService.findAllByGroupId(groupId);
     }
 
     @GetMapping("/{groupId}/idols")
+    @Operation(summary = "List the members (idols) of a group")
     public List<IdolResponseDto> getIdolsByGroupId(@PathVariable Long groupId) {
         return idolService.findAllByGroupId(groupId);
     }
