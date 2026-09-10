@@ -28,9 +28,4 @@ public class SongController {
     public SongResponseDto getSongById(@PathVariable Long id) {
         return songService.findById(id);
     }
-
-    @GetMapping("/album/{albumId}")
-    public List<SongResponseDto> getSongsByAlbum(@PathVariable Long albumId) {
-        return songService.findAllByAlbumId(albumId);
-    }
 }
