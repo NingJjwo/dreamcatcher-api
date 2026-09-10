@@ -42,7 +42,4 @@ public class Group {
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private List<Idol> idols;
-
-    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-    private List<Album> albums;
 }
