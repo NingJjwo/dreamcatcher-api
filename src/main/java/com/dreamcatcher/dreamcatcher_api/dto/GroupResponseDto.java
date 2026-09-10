@@ -9,9 +9,6 @@ public record GroupResponseDto(
         String concept,
         String groupImage) {
     public static GroupResponseDto from(Group group) {
-        if (group == null) {
-            return null;
-        }
         return new GroupResponseDto(
                 group.getId(),
                 group.getGroupName(),
