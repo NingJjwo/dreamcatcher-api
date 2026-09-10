@@ -15,13 +15,7 @@ public record IdolResponseDto(
         List<String> positions) {
 
     public static IdolResponseDto from(Idol idol) {
-        if (idol == null) {
-            return null;
-        }
-
-        List<String> positionNames = idol.getPositions() != null
-                ? idol.getPositions().stream().map(Position::getName).toList()
-                : List.of();
+        List<String> positionNames = idol.getPositions().stream().map(Position::getName).toList();
 
         return new IdolResponseDto(
                 idol.getId(),
