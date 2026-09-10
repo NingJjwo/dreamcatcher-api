@@ -1,5 +1,6 @@
 package com.dreamcatcher.dreamcatcher_api.model;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,18 +15,16 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import org.hibernate.annotations.BatchSize;
 
 @Entity
 @Table(name = "idols", schema = "api")
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Idol {
 
     @Id
@@ -48,7 +47,7 @@ public class Idol {
     @ManyToMany
     @JoinTable(name = "idol_positions", schema = "api", joinColumns = @JoinColumn(name = "idol_id"), inverseJoinColumns = @JoinColumn(name = "position_id"))
     @BatchSize(size = 50)
-    private Set<Position> positions = new HashSet<>();
+    private final Set<Position> positions = new HashSet<>();
 
     @Column(name = "lore_concept")
     private String loreConcept;
@@ -56,4 +55,8 @@ public class Idol {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Group group;
+
+    public Set<Position> getPositions(){
+        return Collections.unmodifiableSet(this.positions);
+    }
 }

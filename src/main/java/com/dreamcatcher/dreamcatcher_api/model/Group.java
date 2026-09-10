@@ -1,5 +1,7 @@
 package com.dreamcatcher.dreamcatcher_api.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -10,17 +12,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "\"groups\"", schema = "api")
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Group {
 
     @Id
@@ -41,5 +40,9 @@ public class Group {
     private String groupImage;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
-    private List<Idol> idols;
+    private final List<Idol>  idols =  new ArrayList<>();
+
+    public List<Idol> getIdols(){
+        return Collections.unmodifiableList(this.idols);
+    }
 }
