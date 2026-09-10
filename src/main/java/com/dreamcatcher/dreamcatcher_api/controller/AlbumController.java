@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dreamcatcher.dreamcatcher_api.dto.AlbumResponseDto;
+import com.dreamcatcher.dreamcatcher_api.dto.SongResponseDto;
 import com.dreamcatcher.dreamcatcher_api.service.AlbumService;
+import com.dreamcatcher.dreamcatcher_api.service.SongService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class AlbumController {
 
     private final AlbumService albumService;
+    private final SongService songService;
 
     @GetMapping
     public List<AlbumResponseDto> getAllAlbums() {
@@ -29,8 +32,8 @@ public class AlbumController {
         return albumService.findById(id);
     }
 
-    @GetMapping("/group/{groupId}")
-    public List<AlbumResponseDto> getAlbumsByGroup(@PathVariable Long groupId) {
-        return albumService.findAllByGroupId(groupId);
+    @GetMapping("/{albumId}/songs")
+    public List<SongResponseDto> getSongsByAlbumId(@PathVariable Long albumId) {
+        return songService.findAllByAlbumId(albumId);
     }
 }
