@@ -2,12 +2,11 @@ package com.dreamcatcher.dreamcatcher_api.controller;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.dreamcatcher.dreamcatcher_api.dto.IdolResponseDto;
 import com.dreamcatcher.dreamcatcher_api.service.IdolService;
@@ -22,18 +21,18 @@ public class IdolController {
     private final IdolService idolService;
 
     @GetMapping
-    public ResponseEntity<List<IdolResponseDto>> getAllIdols(
+    public List<IdolResponseDto> getAllIdols(
             @RequestParam(name = "name", required = false) String name) {
-        return ResponseEntity.ok(idolService.findAll(name));
+        return idolService.findAll(name);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<IdolResponseDto> getIdolById(@PathVariable Long id) {
-        return ResponseEntity.ok(idolService.findById(id));
+    public IdolResponseDto getIdolById(@PathVariable Long id) {
+        return idolService.findById(id);
     }
 
     @GetMapping("/group/{groupId}")
-    public ResponseEntity<List<IdolResponseDto>> getMembersByGroup(@PathVariable Long groupId) {
-        return ResponseEntity.ok(idolService.findAllByGroupId(groupId));
+    public List<IdolResponseDto> getMembersByGroup(@PathVariable Long groupId) {
+        return idolService.findAllByGroupId(groupId);
     }
 }
