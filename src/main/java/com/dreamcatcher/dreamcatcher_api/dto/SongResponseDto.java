@@ -8,9 +8,6 @@ public record SongResponseDto(
         Integer trackNumber) {
 
     public static SongResponseDto from(Song song) {
-        if (song == null) {
-            return null;
-        }
         return new SongResponseDto(
                 song.getId(),
                 song.getSongName(),
