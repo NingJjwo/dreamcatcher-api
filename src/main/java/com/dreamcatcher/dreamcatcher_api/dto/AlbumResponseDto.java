@@ -11,9 +11,6 @@ public record AlbumResponseDto(
         String albumImage) {
 
     public static AlbumResponseDto from(Album album) {
-        if (album == null) {
-            return null;
-        }
         return new AlbumResponseDto(
                 album.getId(),
                 album.getAlbumTitle(),
