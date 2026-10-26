@@ -33,4 +33,10 @@ public class SongController {
     public SongResponseDto getSongById(@PathVariable Long id) {
         return songService.findById(id);
     }
+
+    @GetMapping("/songs/album/{id}")
+    @Operation(summary = "List the songs of an album")
+    public List<SongResponseDto> getSongsByAlbumId(@PathVariable Long id) {
+        return songService.findAllByAlbumId(id);
+    }
 }

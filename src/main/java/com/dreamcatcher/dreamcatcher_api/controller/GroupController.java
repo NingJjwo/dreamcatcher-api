@@ -26,8 +26,6 @@ import lombok.RequiredArgsConstructor;
 public class GroupController {
 
     private final GroupService groupService;
-    private final AlbumService albumService;
-    private final IdolService idolService;
 
     @GetMapping
     @Operation(summary = "List all groups")
@@ -39,17 +37,5 @@ public class GroupController {
     @Operation(summary = "Get a group by id")
     public GroupDetailResponseDto getGroupById(@PathVariable Long id) {
         return groupService.findById(id);
-    }
-
-    @GetMapping("/{groupId}/albums")
-    @Operation(summary = "List the albums of a group")
-    public List<AlbumResponseDto> getAlbumsByGroupId(@PathVariable Long groupId) {
-        return albumService.findAllByGroupId(groupId);
-    }
-
-    @GetMapping("/{groupId}/idols")
-    @Operation(summary = "List the members (idols) of a group")
-    public List<IdolResponseDto> getIdolsByGroupId(@PathVariable Long groupId) {
-        return idolService.findAllByGroupId(groupId);
     }
 }

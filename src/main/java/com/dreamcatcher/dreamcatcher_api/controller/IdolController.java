@@ -37,4 +37,10 @@ public class IdolController {
     public IdolResponseDto getIdolById(@PathVariable Long id) {
         return idolService.findById(id);
     }
+
+    @GetMapping("/group/{id}")
+    @Operation(summary = "List the members (idols) of a group")
+    public List<IdolResponseDto> getIdolsByGroupId(@PathVariable Long id) {
+        return idolService.findAllByGroupId(id);
+    }
 }
