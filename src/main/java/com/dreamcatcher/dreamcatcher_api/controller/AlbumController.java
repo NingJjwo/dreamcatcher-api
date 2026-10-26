@@ -40,7 +40,7 @@ public class AlbumController {
 
     @GetMapping("/group/{id}")
     @Operation(summary = "Get all albums from a specific group")
-    public List<AlbumResponseDto> getAlbumsByGroupId(@PathVariable @NotBlank Long id){
+    public List<AlbumResponseDto> getAlbumsByGroupId(@PathVariable Long id){
         return albumService.findAllByGroupId(id);
     }
 
