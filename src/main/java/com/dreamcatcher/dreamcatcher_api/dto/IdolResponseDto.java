@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dreamcatcher.dreamcatcher_api.model.Idol;
 import com.dreamcatcher.dreamcatcher_api.model.Position;
+import com.dreamcatcher.dreamcatcher_api.util.AssetUrl;
 
 public record IdolResponseDto(
         Long id,
@@ -14,7 +15,7 @@ public record IdolResponseDto(
         String imageUrl,
         List<String> positions) {
 
-    public static IdolResponseDto from(Idol idol) {
+    public static IdolResponseDto from(Idol idol, String assetBaseUrl) {
         List<String> positionNames = idol.getPositions().stream().map(Position::getName).toList();
 
         return new IdolResponseDto(
@@ -23,7 +24,7 @@ public record IdolResponseDto(
                 idol.getRealName(),
                 idol.getNationality(),
                 idol.getLoreConcept(),
-                idol.getImageUrl(),
+                AssetUrl.resolve(assetBaseUrl, idol.getImageUrl()),
                 positionNames);
     }
 }
