@@ -41,3 +41,4 @@ out/
 .agents/skills/
 .claude/
 skills-lock.json
+/src/test/
