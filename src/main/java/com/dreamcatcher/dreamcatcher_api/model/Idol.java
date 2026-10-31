@@ -47,7 +47,7 @@ public class Idol {
     @ManyToMany
     @JoinTable(name = "idol_positions", schema = "api", joinColumns = @JoinColumn(name = "idol_id"), inverseJoinColumns = @JoinColumn(name = "position_id"))
     @BatchSize(size = 50)
-    private final Set<Position> positions = new HashSet<>();
+    private Set<Position> positions = new HashSet<>();
 
     @Column(name = "lore_concept")
     private String loreConcept;
