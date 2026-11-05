@@ -1,0 +1,17 @@
+package com.dreamcatcher.dreamcatcher_api.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.dreamcatcher.dreamcatcher_api.model.Idol;
+
+public interface IdolRepository extends JpaRepository<Idol, Long> {
+
+    @EntityGraph(attributePaths = { "group", "positions" })
+    List<Idol> findAll();
+
+    @EntityGraph(attributePaths = { "group", "positions" })
+    List<Idol> findByGroup_Id(Long groupId);
+}

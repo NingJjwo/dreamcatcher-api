@@ -1,0 +1,11 @@
+package com.dreamcatcher.dreamcatcher_api.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.dreamcatcher.dreamcatcher_api.model.Song;
+
+public interface SongRepository extends JpaRepository<Song, Long> {
+    List<Song> findByAlbum_Id(Long albumId);
+}
