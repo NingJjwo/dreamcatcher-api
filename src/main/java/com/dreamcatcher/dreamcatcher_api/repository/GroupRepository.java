@@ -9,6 +9,6 @@ import com.dreamcatcher.dreamcatcher_api.model.Group;
 
 public interface GroupRepository extends JpaRepository<Group, Long> {
 
-    @EntityGraph(attributePaths = { "idols", "idols.positions" })
+    @EntityGraph(attributePaths = { "idols" })
     Optional<Group> findWithMembersById(Long groupId);
 }
